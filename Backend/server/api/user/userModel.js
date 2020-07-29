@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 var UserSchema = new Schema({
   username: {
     type: String,
@@ -15,10 +15,7 @@ var UserSchema = new Schema({
   }
 });
 
-// middleware that will run before a document
-// is created
 UserSchema.pre('save', function(next) {
-
   if (!this.isModified('password')) return next();
   this.password = this.encryptPassword(this.password);
   next();
@@ -30,6 +27,12 @@ UserSchema.methods = {
   authenticate: function(plainTextPword) {
     return bcrypt.compareSync(plainTextPword, this.password);
   },
+  toJson: function() {
+    var obj = this.toObject()
+    delete obj.password;
+    return obj;
+  },
+
   // hash the passwords
   encryptPassword: function(plainTextPword) {
     if (!plainTextPword) {
@@ -40,5 +43,6 @@ UserSchema.methods = {
     }
   }
 };
+
 
 module.exports = mongoose.model('user', UserSchema);
