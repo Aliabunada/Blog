@@ -4,7 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import red from 'material-ui/colors/red';
+
+import  { useState  } from 'react';
+import $ from "jquery";
+
 const useStyles = makeStyles(theme => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -26,10 +29,41 @@ const useStyles = makeStyles(theme => ({
   }));
 export default function Adminsignin() {
     const classes = useStyles();
+    const [values, setValues] =useState({
+      username : '',
+      password : ''
+    });
+    
+    
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+    // console.log(event.target.value,'this is the value in handle change')
+  };
+ var sending = (event) => {
+
+   event.preventDefault();
+    $.ajax({
+    url: '/auth/signin', 
+    type : "post",
+    data :values , 
+    dataType : 'json',
+    success: (data) => {
+
+      alert("success send!!!")
+      //  window.location.replace('/');
+    }, 
+      
+    error: (err) => {
+      alert("FAILD")
+      console.log('err', err);
+    }
+  });
+}
+
     return (
         <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Typography component="h2" variant="h3">
+        <Typography component="h4" variant="h4">
      Sign in  
         </Typography>
         <form className={classes.form} >
@@ -43,6 +77,7 @@ export default function Adminsignin() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange('username')}
           />
           <TextField
             variant="outlined"
@@ -54,20 +89,24 @@ export default function Adminsignin() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange('password')}
           />
           <br></br>
-          <Button  type="submit"  variant="contained" disabled  fullWidth  style={{marginTop:18,   }}> singnin </Button>
+          <Button  type="submit"  variant="contained"   fullWidth  style={{marginTop:18,   }}
+          onClick={sending}
+          > singnin </Button>
          
           </form>
           <br></br>
-          <br>
-          </br>
+      
           <Typography component="h1" variant="h5" style={{marginTop:18, }}>
-    Already have an account? 
+    Dont have an account? 
         </Typography>
         <br>
           </br>
-        <Button variant="contained" color="secondary" >signup</Button>
+        <Button variant="contained" color="secondary" onClick={()=>{
+                     window.location.replace('/signup')
+                    }}>signup</Button>
               </div>
               </Container>
     );
