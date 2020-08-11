@@ -28,6 +28,7 @@ exports.get = function(req, res, next) {
 };
 
 exports.getOne = function(req, res, next) {
+  // console.log(req, '///// req')
   var user = req.user;
   res.json(user);
 };

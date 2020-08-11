@@ -49,8 +49,9 @@ export default function Adminsignin() {
     dataType : 'json',
     success: (data) => {
 
-      alert("success send!!!")
-      //  window.location.replace('/');
+      localStorage.setItem('ng-blog',data.token);
+        window.location.replace(`/admin?id=${data.id}`);
+      
     }, 
       
     error: (err) => {

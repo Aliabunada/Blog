@@ -42,18 +42,21 @@ export default function Signup() {
 
         event.preventDefault();
         $.ajax({
-            url: '/waiting',
+            url: '/api/users',
             type: "post",
             data: values,
             dataType: 'json',
             success: (data) => {
-
-                alert("success send!!!")
-                //  window.location.replace('/');
+                
+                
+            localStorage.setItem('ng-blog',data.token);
+            window.location.replace(`/admin?id=${values.username}`);
+                // alert("success send!!!")
+                // window.location.replace('/admin');
             },
 
             error: (err) => {
-                alert("FAILD")
+                alert("The username is exists, Try anotherone");
                 console.log('err', err);
             }
         });
@@ -84,14 +87,14 @@ export default function Signup() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="password"
                         type="password"
                         id="password"
                         autoComplete="current-password"
                         onChange={handleChange('password')}
                     />
                     <br></br>
-                    <Button type="submit" variant="contained" disabled fullWidth style={{ marginTop: 18, }}> singnup </Button>
+                    <Button type="submit" variant="contained"  fullWidth style={{ marginTop: 18, }} onClick={sending}> singnup </Button>
 
                 </form>
                 <br></br>

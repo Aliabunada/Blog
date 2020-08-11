@@ -32,14 +32,14 @@ var createDoc = function(model, doc) {
   });
 };
 
-var cleanDB = function() {
-  logger.log('... cleaning the DB');
-  var cleanPromises = [User, Category, Post]
-    .map(function(model) {
-      return model.remove().exec();
-    });
-  return Promise.all(cleanPromises);
-}
+// var cleanDB = function() {
+//   logger.log('... cleaning the DB');
+//   var cleanPromises = [User, Category, Post]
+//     .map(function(model) {
+//       return model.remove().exec();
+//     });
+//   return Promise.all(cleanPromises);
+// }
 
 var createUsers = function(data) {
 
@@ -91,9 +91,9 @@ var createPosts = function(data) {
     });
 };
 
-cleanDB()
-  .then(createUsers)
-  .then(createCategories)
-  .then(createPosts)
-  .then(logger.log.bind(logger))
-  .catch(logger.log.bind(logger));
+// cleanDB()
+//   .then(createUsers)
+//   .then(createCategories)
+//   .then(createPosts)
+//   .then(logger.log.bind(logger))
+//   .catch(logger.log.bind(logger));

@@ -12,7 +12,7 @@ import NavBar from './Components/navbar';
 import Ngblogs from './Components/ngblogs';
 import Adminsignin from './Components/signin'
 import Register from './Components/register'
-import Userpage from './Components/user'
+import Userpage from './Components/makepost'
 import Test from './Components/mainpage'
 
 
@@ -26,7 +26,7 @@ function App() {
     
       <br></br>
       
-       <Router>  
+        <Router>  
         <Switch>
           <Route path="/" exact component={Ngblogs} ></Route>
 
@@ -39,7 +39,7 @@ function App() {
           <Route path='/signup' component={Register}></Route>
 
         </Switch>
-      </Router>
+      </Router> 
 
     </div>
   );
