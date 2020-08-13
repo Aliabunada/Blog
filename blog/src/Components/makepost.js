@@ -10,11 +10,12 @@ import axios from 'axios';
 import $ from "jquery";
 export default function Userpage() {
   const [datas, setDatas] = useState([]);
+  const [busy, setBusy] = useState(false);
   const [values, setValues] = useState({
     title: '',
     text: '',
     author: datas.username,
-    // categories:'programming',
+  
   });
 
 
@@ -26,9 +27,10 @@ export default function Userpage() {
       .then(({ data }) => {
         console.log(data, " ////data from makepost");
         setDatas(data);
+        setBusy(true);
 
       }).catch(()=>{
-        alert('un authrised');
+       
         window.location.replace('/auth')
       })
 
@@ -44,7 +46,7 @@ export default function Userpage() {
   var sending = (event) => {
     var token = localStorage.getItem('ng-blog');
     event.preventDefault();
-    
+
     $.ajax({
       url: `/api/posts?access_token=${token}`,
       type: "post",
@@ -63,7 +65,7 @@ export default function Userpage() {
     });
   }
   return (<div>
-    <Container component="main" maxWidth="md">
+    {busy ? ( <Container component="main" maxWidth="md">
       <Typography component="h1" variant="h4"  >
 
         <Box fontWeight="fontWeightBold" >
@@ -90,7 +92,10 @@ export default function Userpage() {
       <Button type="submit" variant="contained" color="secondary" onClick={sending} style={{ marginTop: 13, }}> Done </Button>
 
     </Container>
-
+):(
+  <h1> </h1>
+)}
+   
 
   </div>);
 }
