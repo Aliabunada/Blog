@@ -47,12 +47,11 @@ export default function Signup() {
             data: values,
             dataType: 'json',
             success: (data) => {
-                
+                console.log(data,' this is the data')
                 
             localStorage.setItem('ng-blog',data.token);
-            window.location.replace(`/admin?id=${values.username}`);
-                // alert("success send!!!")
-                // window.location.replace('/admin');
+            window.location.replace(`/admin?id=${data.id}`);
+           
             },
 
             error: (err) => {

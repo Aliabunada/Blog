@@ -16,19 +16,25 @@ export default function Userpage() {
     author: datas.username,
     // categories:'programming',
   });
+
+
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     var id = query.get('id');
 
     axios.get(`/api/users/${id}`)
       .then(({ data }) => {
-        // console.log(data, " ////data from makepost");
+        console.log(data, " ////data from makepost");
         setDatas(data);
 
-      });
+      }).catch(()=>{
+        alert('un authrised');
+        window.location.replace('/auth')
+      })
 
 
   }, []);
+
 
   const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value });
@@ -36,11 +42,11 @@ export default function Userpage() {
   };
 
   var sending = (event) => {
-
+    var token = localStorage.getItem('ng-blog');
     event.preventDefault();
-
+    
     $.ajax({
-      url: '/api/posts',
+      url: `/api/posts?access_token=${token}`,
       type: "post",
       data: values,
       dataType: 'json',

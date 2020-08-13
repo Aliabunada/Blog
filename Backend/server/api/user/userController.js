@@ -3,6 +3,7 @@ var _ = require('lodash');
 var signToken = require('../../auth/auth').signToken;
 
 exports.params = function(req, res, next, id) {
+ 
   User.findById(id)
   .select(-'password') // it will except the password from query result (Donr SELECT password)
   .exec()
@@ -11,7 +12,7 @@ exports.params = function(req, res, next, id) {
         next(new Error('No user with that id'));
       } else {
         req.user = user;
-        next();
+           next();
       }
     }, function(err) {
       next(err);
@@ -28,7 +29,8 @@ exports.get = function(req, res, next) {
 };
 
 exports.getOne = function(req, res, next) {
-  // console.log(req, '///// req')
+  
+  
   var user = req.user;
   res.json(user);
 };
@@ -54,9 +56,9 @@ exports.post = function(req, res, next) {
 
   newUser.save(function(err, user) {
     if(err) {next(err);}
-
+   
     var token = signToken(user._id);
-    res.json({token: token});
+    res.json({token: token,id :user._id});
   });
 };
 

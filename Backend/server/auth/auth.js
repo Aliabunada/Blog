@@ -6,11 +6,12 @@ var User = require('../api/user/userModel');
 
 exports.decodeToken = function() {
   return function(req, res, next) {
+
     // make it optional to place token on query string
     // if it is, place it on the headers where it should be
     // so checkToken can see it. See follow the 'Bearer 034930493' format
     // so checkToken can see it and decode it
-    if (req.query && req.query.hasOwnProperty('access_token')) {
+   if (req.query && req.query.hasOwnProperty('access_token')) {
       req.headers.authorization = 'Bearer ' + req.query.access_token;
     }
 
@@ -22,7 +23,9 @@ exports.decodeToken = function() {
 };
 
 exports.getFreshUser = function() {
+  
   return function(req, res, next) {
+    
     User.findById(req.user._id)
       .then(function(user) {
         if (!user) {
