@@ -5,6 +5,7 @@ var api = require('./api/api');
 var config = require('./config/config');
 var logger = require('./util/logger');
 var auth = require('./auth/routes');
+const { static } = require('express');
 
 // db.url is different depending on NODE_ENV
 require('mongoose').connect(config.db.url);
@@ -16,12 +17,24 @@ require('./middleware/appMiddlware')(app);
 
 
 // setup the api
-app.use('/api', api);
+app.use('/api', api); 
 app.use('/auth', auth);
 // set up global error handling
 
-app.use(express.static(path.join(__dirname, '../../blog/public','index.html')));
-app.use(express.static(path.join(__dirname, '../../blog/build')));
+
+
+
+// app.use(express.static(path.join(__dirname, "../../blog/build")));
+ // this middleware we can serve all JavaScript, CSS, HTML, and even images.
+
+
+app.use(express.static(path.join(__dirname, "../../blog/build")));
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../../blog/build', 'index.html'));
+});
+
+
 
 app.use(function(err, req, res, next) {
   // if error thrown from jwt validation check

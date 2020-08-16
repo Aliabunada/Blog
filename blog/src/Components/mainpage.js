@@ -31,17 +31,25 @@ const useStyles = makeStyles({
 
 export default function Mainpage() {
   const classes = useStyles();
+  const [busy, setBusy] = useState(false);
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     axios.get('/api/posts')
       .then(({ data }) => {
         setDatas(data);
+        setBusy(true);
+
+      }).catch(()=>{
+       alert('There is Error in Database connection');
+        
       })
+
 
   }, []);
   return (
     <div className={classes.grid} >
+       {busy ? (
       <GridList cols={3} style={{ height: 350, }}>
         {datas.map((data, i = 0) => (
           <Card className={classes.root} key={i++} style={{ marginRight: 35 }} >
@@ -73,7 +81,9 @@ export default function Mainpage() {
           </Card>
         ))}
       </GridList>
+      ):(
+        <h1 style={{color:'red'}}> </h1>
+      )}
     </div>
   );
 }
-  // style = {{background : '#4d4d4d',textAlign: 'center', color:'#FFF'   }}

@@ -30,7 +30,7 @@ export default function Userpage() {
         setBusy(true);
 
       }).catch(()=>{
-       
+       alert('PLEASE Signin, You are not Authorized')
         window.location.replace('/auth')
       })
 

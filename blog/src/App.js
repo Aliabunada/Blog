@@ -28,15 +28,15 @@ function App() {
       
         <Router>  
         <Switch>
-          <Route path="/" exact component={Ngblogs} ></Route>
+          <Route exact path="/"  component={Ngblogs} ></Route>
 
-          <Route path="/admin" component={Userpage} ></Route>
+          <Route exact path="/admin"  component={Userpage} ></Route>
 
-          <Route path="/auth" component={Adminsignin} ></Route>
+          <Route exact path="/auth"  component={Adminsignin} ></Route>
 
-          <Route path='/blogs' component={Test}></Route>
+          <Route exact path='/blogs' exact component={Test}></Route>
 
-          <Route path='/signup' component={Register}></Route>
+          <Route exact path='/signup' exact component={Register}></Route>
 
         </Switch>
       </Router> 
