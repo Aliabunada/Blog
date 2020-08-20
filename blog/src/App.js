@@ -14,7 +14,7 @@ import Adminsignin from './Components/signin'
 import Register from './Components/register'
 import Userpage from './Components/makepost'
 import Test from './Components/mainpage'
-
+import ShowPost from './Components/post'
 
 function App() {
   return (
@@ -34,9 +34,11 @@ function App() {
 
           <Route exact path="/auth"  component={Adminsignin} ></Route>
 
-          <Route exact path='/blogs' exact component={Test}></Route>
+          <Route exact path='/blogs'  component={Test}></Route>
 
-          <Route exact path='/signup' exact component={Register}></Route>
+          <Route exact path='/signup'  component={Register}></Route>
+
+          <Route exact path='/article'  component={ShowPost}></Route>
 
         </Switch>
       </Router> 

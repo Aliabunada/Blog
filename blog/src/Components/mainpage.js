@@ -13,7 +13,7 @@ import { GridList } from '@material-ui/core';
 import cat from '../images/cat.jpeg';
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 300,
     maxHeight: 1000,
   },
   media: {
@@ -48,11 +48,11 @@ export default function Mainpage() {
 
   }, []);
   return (
-    <div className={classes.grid} >
+    <div  >
        {busy ? (
-      <GridList cols={3} style={{ height: 350, }}>
+      <GridList cols={3} >
         {datas.map((data, i = 0) => (
-          <Card className={classes.root} key={i++} style={{ marginRight: 35 }} >
+          <Card className={classes.root} key={i++} style={{ margin: 20 }} >
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -61,7 +61,10 @@ export default function Mainpage() {
                 image={cat}
                 title="Contemplative Reptile"
               />
-              <CardContent>
+              <CardContent onClick={() => {
+                
+                window.location.replace(`/article/?id=${data._id}`)
+              }}> 
                 <Typography gutterBottom variant="h6" component="h6">
                   {data.title}
                 </Typography>
@@ -72,7 +75,8 @@ export default function Mainpage() {
             </CardActionArea>
             <CardActions>
               <Button size="small" color="primary" onClick={() => {
-                console.log(datas)
+                window.location.replace(`/article/?id=${data._id}`)
+                
               }}>
                 show more..
         </Button>
