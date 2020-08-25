@@ -32,7 +32,7 @@ npm install
 ```
 ## Running Application
 - clone the repo OR download it 
-- to run the server
+- to run the app after Installing Dependencies
   ```
     npm start
   ```
